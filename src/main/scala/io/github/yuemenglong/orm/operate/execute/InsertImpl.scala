@@ -1,14 +1,9 @@
-package io.github.yuemenglong.orm.operate.impl
-
-import java.sql.{Connection, Statement}
+package io.github.yuemenglong.orm.operate.execute
 
 import io.github.yuemenglong.orm.Session.Session
 import io.github.yuemenglong.orm.lang.interfaces.Entity
-import io.github.yuemenglong.orm.logger.Logger
 import io.github.yuemenglong.orm.meta.{EntityMeta, OrmMeta}
-import io.github.yuemenglong.orm.operate.traits.ExecutableInsert
-
-import scala.collection.mutable.ArrayBuffer
+import io.github.yuemenglong.orm.operate.execute.traits.ExecutableInsert
 
 /**
   * Created by <yuemenglong@126.com> on 2017/7/16.
@@ -59,47 +54,6 @@ class InsertImpl[T](clazz: Class[T]) extends ExecutableInsert[T] {
         }
       }
     })
-    //    val stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
-    //    Logger.info(sql)
-
-//    val inTransaction = !conn.getAutoCommit
-//    if (!inTransaction) {
-//      conn.setAutoCommit(false)
-//    }
-//    entities.foreach(entity => {
-//      val ab = ArrayBuffer[Object]()
-//      fields.zipWithIndex.foreach { case (field, i) =>
-//        val value = if (entity.$$core().fieldMap.contains(field.name)) {
-//          entity.$$core().fieldMap(field.name)
-//        } else {
-//          null
-//        }
-//        stmt.setObject(i + 1, value)
-//        ab += value
-//      }
-//      Logger.info(s"Batch Params => [${ab.map(String.valueOf(_)).mkString(", ")}]")
-//      stmt.addBatch()
-//    })
-
-//    val ret = stmt.executeBatch()
-//    if (meta.pkey.isAuto) {
-//      val rs = stmt.getGeneratedKeys
-//      val ids = Stream.continually({
-//        if (rs.next()) {
-//          rs.getObject(1)
-//        } else {
-//          null
-//        }
-//      }).takeWhile(_ != null).toArray
-//      array.zipWithIndex.foreach { case (o, i) =>
-//        val core = o.asInstanceOf[Entity].$$core()
-//        core.setPkey(ids(i))
-//      }
-//    }
-//    if (!inTransaction) {
-//      conn.commit()
-//    }
-//    ret.sum
   }
 
   override def values(arr: Array[T]): ExecutableInsert[T] = {
